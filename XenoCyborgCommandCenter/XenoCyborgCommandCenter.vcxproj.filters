@@ -16,5 +16,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
+    <ClCompile Include="xeno_cyborg.c" />
+    <ClCompile Include="ui.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="xeno_cyborg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
