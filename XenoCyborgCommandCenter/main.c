@@ -20,6 +20,8 @@ int main(int argc, char* argv[]) {
 	// Print welcome message
 	WelcomeMessage();
 
+	GetUserChoice();
+
 	// Initialize variables
 	AlienCyborg* cyborgs = NULL;
 	int count = 0;
