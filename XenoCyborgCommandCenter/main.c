@@ -1,8 +1,20 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include "xeno_cyborg.h"
 
-int main(void) {
+#define LINE_MAX 256
+
+// Read line from stdin, strip newline, replace with null terminator, return 1 on sucesss
+static int read_line(char* buffer, size_t length) {
+	if (fgets(buffer, (int)length, stdin) == NULL) return 0;
+	buffer[strcspn(buffer, "\n")] = '\0'; // Replace newline with null terminator
+	return 1;
+
+}
+
+int main(int argc, char* argv[]) {
 
 	// Initialize variables
 	AlienCyborg* cyborgs = NULL;
@@ -25,20 +37,38 @@ int main(void) {
 	size_t newCap = capacity * 2;
 
 	// Try to resize the cyborg array's memory block
-	AlienCyborg *tmp = realloc(cyborgs, newCap * sizeof *tmp);
+	AlienCyborg* tmp = realloc(cyborgs, newCap * sizeof * tmp);
 
 	if (tmp == NULL) {
 		perror("realloc");
 		exit(EXIT_FAILURE);
 	}
 	else {
-		// Upodate pointer and capacity after reallocation
+		// Update pointer and capacity after reallocation
 		cyborgs = tmp;
 		capacity = newCap;
 		printf("Memory reallocated successfully\n");
 	}
 
+	// Get filename from argv
+	if (argc > 1) {
+		const char* fname = argv[1];
 
+		// prompt for mode required
+		char modeStr[LINE_MAX];
+		int mode = 0;
+
+		printf("Load '%s' as 1) binary or 2) text :", fname);
+
+		// Read user's choice
+		if (read_line(modeStr, sizeof modeStr))
+			mode = (int)strtol(modeStr, NULL, 10); // Convert string to long then cast as integer
+
+		if (mode != 1 && mode != 2) {
+			puts("invalid choice");
+			mode = 0;
+		}
+	}
 
 	return 1;
 }
