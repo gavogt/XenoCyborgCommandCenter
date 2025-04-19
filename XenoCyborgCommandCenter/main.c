@@ -6,6 +6,7 @@
 #include "xeno_cyborg.h"
 
 #define LINE_MAX 256
+#define MAX_CYBORGS 10
 
 // Read line from stdin, strip newline, replace with null terminator, return 1 on sucesss
 static int read_line(char* buffer, size_t length) {
@@ -80,6 +81,22 @@ int main(int argc, char* argv[]) {
 			if (!file) {
 				perror("Failed to open file");
 				exit(EXIT_FAILURE);
+			}
+			else if (mode == 1) {
+				// Read 1 item size of count from file store it in count
+				if (fread(&count, sizeof(count), 1, file) == 1 &&
+					count <= MAX_CYBORGS &&
+					// Load all cyborgs into memory
+					(fread(cyborgs, sizeof *cyborgs, count, file) == (size_t)count)) {
+					// Successfully read cyborgs from binary file
+					printf("Read %d cyborgs from binary file\n", count);
+				}
+				else {
+					perror("Failed to read cyborgs from binary file");
+					exit(EXIT_FAILURE);
+				}
+
+				fclose(file);
 			}
 		}
 	}
