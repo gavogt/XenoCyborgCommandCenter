@@ -1,97 +1,103 @@
-#include <stdio.h>
+Ôªø#include <stdio.h>
+#include "xeno_cyborg.h"
 
 int main(void) {
-	printf("XenoCyborg Command Center\n");
+
+    // Initialize variables
+	AlienCyborg* cyborgs = NULL; 
+    int count = 0;
+	int capacity = 0;
+
 	return 1;
 }
 
 /*
-Assignment: Alien Cyborg Command Core ñ main.c
+Assignment: Alien Cyborg Command Core ‚Äì main.c
 
 Objective:
-  Create a robust, menu?driven C program to register, inspect, and persist
-  a fleet of Alien Cyborgs. Youíll build on basic data management by adding:
-    ï Dynamic memory growth
-    ï Dual?format file loading/saving (text & binary)
-    ï Search and sort functionality
-    ï Age?based classification
-    ï Rigorous error checks and input sanitization
+  Create a robust, menu‚Äëdriven C program to register, inspect, and persist
+  a fleet of Alien Cyborgs. You‚Äôll build on basic data management by adding:
+    ‚Ä¢ Dynamic memory growth
+    ‚Ä¢ Dual‚Äëformat file loading/saving (text & binary)
+    ‚Ä¢ Search and sort functionality
+    ‚Ä¢ Age‚Äëbased classification
+    ‚Ä¢ Rigorous error checks and input sanitization
 
 Hints & Tasks:
 
 1. Data Model
-   ñ Define an enum for cyborg roles.
-   ñ Define a struct for each cyborg with at least: ID, name, age, role.
-   ñ Think about how youíll map enum values to human?readable strings later.
+   ‚Äì Define an enum for cyborg roles.
+   ‚Äì Define a struct for each cyborg with at least: ID, name, age, role.
+   ‚Äì Think about how you‚Äôll map enum values to human‚Äëreadable strings later.
 
 2. Dynamic Array Storage
-   ñ Start with a `NULL` pointer, zero count & capacity.
-   ñ On first add, allocate a small block (e.g., capacity = 4).
-   ñ When full, double capacity via `realloc`.
-   ñ Always check for allocation failures.
+   ‚Äì Start with a `NULL` pointer, zero count & capacity.
+   ‚Äì On first add, allocate a small block (e.g., capacity = 4).
+   ‚Äì When full, double capacity via `realloc`.
+   ‚Äì Always check for allocation failures.
 
 3. Startup File Loading
-   ñ Read the target filename from `argv`.
-   ñ Prompt user for ìbinary or textî mode.
-   ñ In binary mode: read count, then raw structs.
-   ñ In text mode: parse lines of comma?separated values.
-   ñ If file is missing or malformed, proceed with an empty list.
+   ‚Äì Read the target filename from `argv`.
+   ‚Äì Prompt user for ‚Äúbinary or text‚Äù mode.
+   ‚Äì In binary mode: read count, then raw structs.
+   ‚Äì In text mode: parse lines of comma‚Äëseparated values.
+   ‚Äì If file is missing or malformed, proceed with an empty list.
 
 4. Main Menu Loop
-   ñ Present numbered options until ìExitî:
+   ‚Äì Present numbered options until ‚ÄúExit‚Äù:
        1) Add new cyborg
        2) List cyborgs
        3) Search cyborgs
        4) Sort cyborgs
        5) Save & Exit
        6) Exit without saving
-   ñ Read exactly one character per choice; reject invalid input.
+   ‚Äì Read exactly one character per choice; reject invalid input.
 
 5. Add New Cyborg
-   ñ Prompt for ID (int), name (string), age (int), and role (enum).
-   ñ Sanitize each entry and clear stray input.
-   ñ Grow storage if needed, then store the new record.
+   ‚Äì Prompt for ID (int), name (string), age (int), and role (enum).
+   ‚Äì Sanitize each entry and clear stray input.
+   ‚Äì Grow storage if needed, then store the new record.
 
 6. List Cyborgs with Age Category
-   ñ For each record, determine ìMinor/Adult/Seniorî from age.
-   ñ Print ID, name, age, category, and role name.
+   ‚Äì For each record, determine ‚ÄúMinor/Adult/Senior‚Äù from age.
+   ‚Äì Print ID, name, age, category, and role name.
 
 7. Search Functionality
-   ñ Ask user: search by ID or by role.
-   ñ For ID: scan for a matching integer.
-   ñ For role: scan for matching enum value.
-   ñ Display found entries using the same format as ìList.î
+   ‚Äì Ask user: search by ID or by role.
+   ‚Äì For ID: scan for a matching integer.
+   ‚Äì For role: scan for matching enum value.
+   ‚Äì Display found entries using the same format as ‚ÄúList.‚Äù
 
 8. Sort Functionality
-   ñ Ask user: sort by ID or by name.
-   ñ Implement comparison callbacks.
-   ñ Call `qsort()` on your array of pointers.
+   ‚Äì Ask user: sort by ID or by name.
+   ‚Äì Implement comparison callbacks.
+   ‚Äì Call `qsort()` on your array of pointers.
 
 9. Save & Exit
-   ñ Based on initial mode, open file in ìwbî or ìwî.
-   ñ In binary: write count and raw structs.
-   ñ In text: write lines of comma?separated fields.
-   ñ Check every return value (`fopen`, `fwrite`, `fprintf`, etc.).
-   ñ Free all allocated memory before exiting.
+   ‚Äì Based on initial mode, open file in ‚Äúwb‚Äù or ‚Äúw‚Äù.
+   ‚Äì In binary: write count and raw structs.
+   ‚Äì In text: write lines of comma‚Äëseparated fields.
+   ‚Äì Check every return value (`fopen`, `fwrite`, `fprintf`, etc.).
+   ‚Äì Free all allocated memory before exiting.
 
 10. Exit Without Saving
-   ñ Skip file operations.
-   ñ Still free all memory before exiting.
+   ‚Äì Skip file operations.
+   ‚Äì Still free all memory before exiting.
 
 11. Error Handling & Validation
-   ñ After every I/O or allocation call, test for errors.
-   ñ Use `perror()` (or similar) to report failures.
-   ñ Always clear the input buffer when mixing `scanf`/`fgets`.
+   ‚Äì After every I/O or allocation call, test for errors.
+   ‚Äì Use `perror()` (or similar) to report failures.
+   ‚Äì Always clear the input buffer when mixing `scanf`/`fgets`.
 
 12. Documentation
-   ñ At the top of `main.c`, include your name, date, and a one?line
-     summary of the programís purpose.
-   ñ Before each logical block (loading, menu, add, list, search, sort,
+   ‚Äì At the top of `main.c`, include your name, date, and a one‚Äëline
+     summary of the program‚Äôs purpose.
+   ‚Äì Before each logical block (loading, menu, add, list, search, sort,
      save, cleanup), write a brief comment explaining its role.
 
 Stretch Goals (Optional):
-  ñ Replace the array with a linked list.
-  ñ Add a union inside your struct for role?specific stats.
-  ñ Allow CLI flags to set initial capacity or force text/binary mode.
-  ñ Implement unit tests for search & sort routines in a separate file.
+  ‚Äì Replace the array with a linked list.
+  ‚Äì Add a union inside your struct for role‚Äëspecific stats.
+  ‚Äì Allow CLI flags to set initial capacity or force text/binary mode.
+  ‚Äì Implement unit tests for search & sort routines in a separate file.
 */
