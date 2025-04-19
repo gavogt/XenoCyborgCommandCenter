@@ -71,6 +71,17 @@ int main(int argc, char* argv[]) {
 			puts("invalid choice");
 			mode = 0;
 		}
+
+		// Open file in the specified mode
+		if (mode) {
+			// Open file in binary mode if mode is 1 and read file if mode is not 1
+			FILE* file = fopen(fname, mode == 1 ? "rb" : "r");
+			// Check if there is a file
+			if (!file) {
+				perror("Failed to open file");
+				exit(EXIT_FAILURE);
+			}
+		}
 	}
 
 	return 1;
