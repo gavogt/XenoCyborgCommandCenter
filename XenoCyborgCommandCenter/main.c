@@ -6,105 +6,92 @@ int main(void) {
 }
 
 /*
-Assignment: Advanced Alien Cyborg Program Enhancements – main.c
+Assignment: Alien Cyborg Command Core – main.c
 
 Objective:
-  Build a feature?rich, menu?driven C program to manage a dynamic roster of Alien Cyborgs.
-  You will practice:
-    • Dynamic memory allocation (malloc/realloc/free)
-    • Structs, enums, and unions
-    • Menu loops with multiple actions
-    • Sorting with qsort and function pointers
-    • Searching with predicates
-    • Dual?format file I/O (text vs. binary)
-    • Robust error handling and input validation
+  Create a robust, menu?driven C program to register, inspect, and persist
+  a fleet of Alien Cyborgs. You’ll build on basic data management by adding:
+    • Dynamic memory growth
+    • Dual?format file loading/saving (text & binary)
+    • Search and sort functionality
+    • Age?based classification
+    • Rigorous error checks and input sanitization
 
-Requirements:
+Hints & Tasks:
 
 1. Data Model
-   • In main.c, define:
-       typedef enum { SCOUT, WARRIOR, ENGINEER, MEDIC } CyborgRole;
-       typedef struct {
-         int         id;
-         char        name[50];
-         int         age;
-         CyborgRole  role;
-       } AlienCyborg;
-   • All operations in a single file using this struct.
+   – Define an enum for cyborg roles.
+   – Define a struct for each cyborg with at least: ID, name, age, role.
+   – Think about how you’ll map enum values to human?readable strings later.
 
-2. Dynamic Roster Storage
-   • Declare:
-       AlienCyborg **roster = NULL;
-       size_t count = 0, capacity = 0;
-   • On start, allocate initial capacity (e.g. 4). On malloc failure, print perror and exit(1).
+2. Dynamic Array Storage
+   – Start with a `NULL` pointer, zero count & capacity.
+   – On first add, allocate a small block (e.g., capacity = 4).
+   – When full, double capacity via `realloc`.
+   – Always check for allocation failures.
 
-3. Growth Strategy
-   • When count == capacity:
-       – Double capacity (or set to 4 if zero)
-       – realloc roster; on failure, free memory, perror, exit(1).
+3. Startup File Loading
+   – Read the target filename from `argv`.
+   – Prompt user for “binary or text” mode.
+   – In binary mode: read count, then raw structs.
+   – In text mode: parse lines of comma?separated values.
+   – If file is missing or malformed, proceed with an empty list.
 
-4. Startup Mode Selection
-   • On launch, read argv[1] (filename) and prompt:
-       “Load as (1) binary or (2) text format?”
-   • Based on choice, load existing data:
-       – Binary: fread count, then each struct.
-       – Text: fscanf lines of “id,name,age,role”.
-   • If file doesn’t exist, start empty.
-
-5. Menu?Driven Loop (repeat until “6”)
-       1) Add Alien Cyborg
-       2) List All Cyborgs
-       3) Search Cyborgs
-       4) Sort Cyborgs
+4. Main Menu Loop
+   – Present numbered options until “Exit”:
+       1) Add new cyborg
+       2) List cyborgs
+       3) Search cyborgs
+       4) Sort cyborgs
        5) Save & Exit
-       6) Exit Without Saving
-   • Read single-char choice; reject invalid inputs.
+       6) Exit without saving
+   – Read exactly one character per choice; reject invalid input.
 
-6. Add Alien Cyborg
-   • Prompt for id, name (fgets + strip newline), age, role (0–3).
-   • Before add, grow roster if needed.
-   • Allocate new struct, fill fields, roster[count++] = ptr.
+5. Add New Cyborg
+   – Prompt for ID (int), name (string), age (int), and role (enum).
+   – Sanitize each entry and clear stray input.
+   – Grow storage if needed, then store the new record.
 
-7. List All Cyborgs (with Age Categorization)
-   • Loop through roster:
-       – Print “[ID] Name (Age years – <category>) – ROLE”
-         where <category> = “Minor” (<18), “Adult” (18–64), “Senior” (65+).
-       – Convert enum to string via switch.
+6. List Cyborgs with Age Category
+   – For each record, determine “Minor/Adult/Senior” from age.
+   – Print ID, name, age, category, and role name.
 
-8. Search Cyborgs
-   • Prompt: search by (a) ID or (b) Role.
-     – For ID: read int, scan roster for matching id.
-     – For Role: read 0–3, list all matching.
-   • Print found entries with same format as “List.”
+7. Search Functionality
+   – Ask user: search by ID or by role.
+   – For ID: scan for a matching integer.
+   – For role: scan for matching enum value.
+   – Display found entries using the same format as “List.”
 
-9. Sort Cyborgs
-   • Prompt: sort by (a) ID or (b) Name.
-   • Implement two compare functions and call:
-       qsort(roster, count, sizeof(*roster), cmp_by_id);
-     or
-       qsort(roster, count, sizeof(*roster), cmp_by_name);
+8. Sort Functionality
+   – Ask user: sort by ID or by name.
+   – Implement comparison callbacks.
+   – Call `qsort()` on your array of pointers.
 
-10. Save & Exit
-   • Based on initial format choice, open file for “wb” or “w”.
-   • Binary: fwrite count + structs.
-   • Text: for each cyborg, fprintf “%d,%s,%d,%d\n”.
-   • On any fopen/fwrite/fprintf error, perror and exit(1).
-   • Free all allocated memory and exit(0).
+9. Save & Exit
+   – Based on initial mode, open file in “wb” or “w”.
+   – In binary: write count and raw structs.
+   – In text: write lines of comma?separated fields.
+   – Check every return value (`fopen`, `fwrite`, `fprintf`, etc.).
+   – Free all allocated memory before exiting.
 
-11. Exit Without Saving
-   • Free all memory and exit(0) without touching file.
+10. Exit Without Saving
+   – Skip file operations.
+   – Still free all memory before exiting.
 
-12. Error Handling & Validation
-   • Check return values of scanf/fgets/fread/fwrite/fprintf.
-   • Clear stdin when mixing numeric and string inputs.
+11. Error Handling & Validation
+   – After every I/O or allocation call, test for errors.
+   – Use `perror()` (or similar) to report failures.
+   – Always clear the input buffer when mixing `scanf`/`fgets`.
 
-13. Documentation
-   • At top of main.c, include author, date, file purpose.
-   • Comment each major block: initialization, load, menu, add, list, search, sort, save, cleanup.
+12. Documentation
+   – At the top of `main.c`, include your name, date, and a one?line
+     summary of the program’s purpose.
+   – Before each logical block (loading, menu, add, list, search, sort,
+     save, cleanup), write a brief comment explaining its role.
 
 Stretch Goals (Optional):
-  • Replace dynamic array with linked list.
-  • Add a union for role?specific abilities in AlienCyborg.
-  • Implement unit tests in a separate test.c.
-  • Support CLI flags: -t (text), -b (binary), -n N (initial capacity).
+  – Replace the array with a linked list.
+  – Add a union inside your struct for role?specific stats.
+  – Allow CLI flags to set initial capacity or force text/binary mode.
+  – Implement unit tests for search & sort routines in a separate file.
 */
