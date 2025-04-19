@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "ui.h"
 #include "xeno_cyborg.h"
 
 #define LINE_MAX 256
@@ -15,6 +16,8 @@ static int read_line(char* buffer, size_t length) {
 }
 
 int main(int argc, char* argv[]) {
+	// Print welcome message
+	WelcomeMessage();
 
 	// Initialize variables
 	AlienCyborg* cyborgs = NULL;
