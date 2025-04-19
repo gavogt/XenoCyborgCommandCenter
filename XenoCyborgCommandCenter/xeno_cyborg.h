@@ -6,3 +6,5 @@ typedef struct {
 	int age;
 	CyborgRole role;
 } AlienCyborg;
+
+GetUserChoice(void);
