@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "ui.h"
+#include "util.h"
 #include "xeno_cyborg.h"
 
 #define LINE_MAX 256

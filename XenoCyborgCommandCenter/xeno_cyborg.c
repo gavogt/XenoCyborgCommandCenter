@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "util.h"
 #include "xeno_cyborg.h"
 
 int GetUserChoice() {
