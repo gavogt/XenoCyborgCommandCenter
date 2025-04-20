@@ -15,7 +15,7 @@ int GetUserChoice() {
 	puts("4) Sort cyborgs");
 	puts("5) Save & Exit");
 	puts("6) Exit without saving");
-	printf("Enter your choice: ");
+	printf("Enter your choice (1-6): ");
 
 	// Get User Choice
 	if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
@@ -100,4 +100,36 @@ AddXenoCyborg() {
 	}
 
 	// Choose role input
+	while (1) {
+		puts("Select Role:");
+		puts("1) SCOUT");
+		puts("2) WARRIOR");
+		puts("3) ENGINEER");
+		puts("4) MEDIC");
+		printf("Enter your choice (1-4): ");
+
+		if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+			buffer[strcspn(buffer, "\n")] = '\0'; // Remove newline character
+			int roleChoice = atoi(buffer); // Convert string to integer
+
+			if (roleChoice >= 1 && roleChoice <= 4) {
+				role = (CyborgRole)(roleChoice - 1); // Convert to enum
+				break;
+			}
+			else {
+				printf(stderr, "Invalid choice. Please enter a number between 1 and 4.\n");
+			}
+		}
+		else {
+			printf(stderr, "Error reading role input\n");
+			EXIT_FAILURE;
+		}
+	}
+
+	// Confirm and print new cyborg
+	puts("New Cyborg Details:");
+	printf("ID: %d\n", newCyborg.id);
+	printf("Name: %s\n", newCyborg.name);
+	printf("Age: %d\n", newCyborg.age);
+	printf("Role: %d\n", role);
 }
