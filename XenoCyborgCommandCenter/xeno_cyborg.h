@@ -14,6 +14,6 @@ int GetUserChoice();
 
 MenuSwitch(int choice);
 
-AddXenoCyborg(void);
+AlienCyborg AddXenoCyborg(void);
 
 #endif // XENO_CYBORG_H

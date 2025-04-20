@@ -65,12 +65,13 @@ MenuSwitch(int choice) {
 	}
 }
 
-AddXenoCyborg() {
+AlienCyborg AddXenoCyborg(void) {
 	// Variable declarations
 	AlienCyborg newCyborg;
 	char buffer[50];
 
-	CyborgRole role;
+	// Initialize new cyborg to default scout
+	CyborgRole role = (CyborgRole)0;
 
 	printf("Enter ID: ");
 	if (!read_line(buffer, sizeof(buffer))) exit(EXIT_FAILURE);
@@ -96,7 +97,7 @@ AddXenoCyborg() {
 		int roleChoice = atoi(buffer); // Convert string to integer
 
 		if (roleChoice >= 1 && roleChoice <= 4) {
-			role = (CyborgRole)(roleChoice - 1); // Convert to enum
+			newCyborg.role = (CyborgRole)(roleChoice - 1); // Convert to enum
 			break;
 		}
 		else {
@@ -110,6 +111,8 @@ AddXenoCyborg() {
 	printf("Name: %s\n", newCyborg.name);
 	printf("Age: %d\n", newCyborg.age);
 	printf("Role: %d\n", role);
+
+	return newCyborg; // Return the new cyborg struct
 }
 
 
