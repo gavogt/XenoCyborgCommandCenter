@@ -18,7 +18,6 @@ int main(int argc, char* argv[]) {
 
 	choice = GetUserChoice();
 
-	MenuSwitch(choice);
 
 	// Initialize variables
 	AlienCyborg* cyborgs = NULL;
@@ -36,22 +35,28 @@ int main(int argc, char* argv[]) {
 			printf("Memory allocated successfully\n");
 		}
 	}
+	// If no cyborg was created will return 0
+	AlienCyborg newCyborg = MenuSwitch(choice);
 
-	// Compute new capacity by doubling it
-	size_t newCap = capacity * 2;
+	// If newCyborg.id is not 0, it means a cyborg was created
+	if (newCyborg.id != 0) {
+		if (count == capacity) {
+			capacity *= 2; // Double the capacity if at capacity
+			// Prevent memory leak by reallocating memory so no loss of memoryblock for cyborgs into tmp pointer
+			AlienCyborg* tmp = realloc(cyborgs, capacity * sizeof * cyborgs);
+			if (!tmp) {
+				perror("Failed to reallocate memory");
+				free(cyborgs); // Free previously allocated memory
+				exit(EXIT_FAILURE);
+			}
 
-	// Try to resize the cyborg array's memory block
-	AlienCyborg* tmp = realloc(cyborgs, newCap * sizeof * tmp);
+			cyborgs = tmp; // Update pointer to pointer to the newly allocated memory
 
-	if (tmp == NULL) {
-		perror("realloc");
-		exit(EXIT_FAILURE);
-	}
-	else {
-		// Update pointer and capacity after reallocation
-		cyborgs = tmp;
-		capacity = newCap;
-		printf("Memory reallocated successfully\n");
+		}
+		cyborgs[count++] = newCyborg; // Add new cyborg to the array
+
+		// Let user know success
+		printf("Cyborg added successfully. Total cyborgs: %d\n", count);
 	}
 
 	// Get filename from argv
@@ -87,7 +92,7 @@ int main(int argc, char* argv[]) {
 				if (fread(&count, sizeof(count), 1, file) == 1 &&
 					count <= MAX_CYBORGS &&
 					// Load all cyborgs into memory
-					(fread(cyborgs, sizeof *cyborgs, count, file) == (size_t)count)) {
+					(fread(cyborgs, sizeof * cyborgs, count, file) == (size_t)count)) {
 					// Successfully read cyborgs from binary file
 					printf("Read %d cyborgs from binary file\n", count);
 				}
