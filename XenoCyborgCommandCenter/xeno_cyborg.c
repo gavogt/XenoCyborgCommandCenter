@@ -21,11 +21,11 @@ GetUserChoice() {
 		choice = atoi(buffer); // Convert string to integer
 
 		if (choice < 1 || choice > 6) {
-			fprintf(stderr, "Invalid choice. Please enter a number between 1 and 6.\n");
+			printf(stderr, "Invalid choice. Please enter a number between 1 and 6.\n");
 			EXIT_FAILURE;
 		}
 		else {
-			printf("You selected option %d\n", choice);
+			puts("You selected option %d\n", choice);
 			return choice;
 		}
 	}
