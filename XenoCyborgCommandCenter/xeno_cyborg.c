@@ -39,11 +39,10 @@ int GetUserChoice() {
 	}
 }
 
-MenuSwitch(int choice) {
+AlienCyborg MenuSwitch(int choice) {
 	switch (choice) {
 	case 1:
-		AddXenoCyborg();
-		break;
+		return AddXenoCyborg();
 	case 2:
 		// List cyborgs
 		break;
@@ -58,7 +57,7 @@ MenuSwitch(int choice) {
 		break;
 	case 6:
 		puts("Exiting....");
-		EXIT_FAILURE;
+		exit(EXIT_SUCCESS);
 		break;
 	default:
 		EXIT_FAILURE;
@@ -110,7 +109,7 @@ AlienCyborg AddXenoCyborg(void) {
 	printf("ID: %d\n", newCyborg.id);
 	printf("Name: %s\n", newCyborg.name);
 	printf("Age: %d\n", newCyborg.age);
-	printf("Role: %d\n", role);
+	printf("Role: %d\n", newCyborg.role);
 
 	return newCyborg; // Return the new cyborg struct
 }

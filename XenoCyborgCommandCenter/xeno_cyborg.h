@@ -12,7 +12,7 @@ typedef struct {
 
 int GetUserChoice();
 
-MenuSwitch(int choice);
+AlienCyborg MenuSwitch(int choice);
 
 AlienCyborg AddXenoCyborg(void);
 
