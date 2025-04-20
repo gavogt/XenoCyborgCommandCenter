@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "xeno_cyborg.h"
 
-GetUserChoice() {
+int GetUserChoice() {
 	// Variable declarations
 	char buffer[50];
 	int choice;
@@ -25,7 +25,7 @@ GetUserChoice() {
 			EXIT_FAILURE;
 		}
 		else {
-			puts("You selected option %d\n", choice);
+			printf("You selected option %d\n", choice);
 			return choice;
 		}
 	}

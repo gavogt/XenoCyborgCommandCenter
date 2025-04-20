@@ -20,7 +20,9 @@ int main(int argc, char* argv[]) {
 	// Print welcome message
 	WelcomeMessage();
 
-	GetUserChoice();
+	int choice = 0;
+
+	choice = GetUserChoice();
 
 	// Initialize variables
 	AlienCyborg* cyborgs = NULL;

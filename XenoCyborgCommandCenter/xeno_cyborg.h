@@ -7,4 +7,4 @@ typedef struct {
 	CyborgRole role;
 } AlienCyborg;
 
-GetUserChoice(void);
+int GetUserChoice();
