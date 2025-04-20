@@ -38,7 +38,7 @@ int GetUserChoice() {
 MenuSwitch(int choice) {
 	switch (choice) {
 	case 1:
-		// Add new cyborg
+		AddXenoCyborg();
 		break;
 	case 2:
 		// List cyborgs
@@ -59,4 +59,43 @@ MenuSwitch(int choice) {
 	default:
 		EXIT_FAILURE;
 	}
+}
+
+AddXenoCyborg() {
+	// Variable declarations
+	AlienCyborg newCyborg;
+	char buffer[50];
+
+	CyborgRole role;
+
+	printf("Enter ID: ");
+	if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+		buffer[strcspn(buffer, "\n")] = '\0'; // Remove newline character
+		newCyborg.id = atoi(buffer); // Convert string to integer
+	}
+	else {
+		printf(stderr, "Error reading id input\n");
+		EXIT_FAILURE;
+	}
+
+	printf("Enter Name: ");
+	if (fgets(newCyborg.name, sizeof(newCyborg.name), stdin) != NULL) {
+		newCyborg.name[strcspn(newCyborg.name, "\n")] = '\0'; // Remove newline character
+	}
+	else {
+		printf(stderr, "Error reading name input\n");
+		EXIT_FAILURE;
+	}
+
+	printf("Enter Age: ");
+	if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+		buffer[strcspn(buffer, "\n")] = '\0'; // Remove newline character
+		newCyborg.age = atoi(buffer); // Convert string to integer
+	}
+	else {
+		printf(stderr, "Error reading age input\n");
+		EXIT_FAILURE;
+	}
+
+	// Choose role input
 }

@@ -10,3 +10,5 @@ typedef struct {
 int GetUserChoice();
 
 MenuSwitch(int choice);
+
+AddXenoCyborg(void);
