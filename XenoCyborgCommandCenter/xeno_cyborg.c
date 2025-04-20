@@ -7,6 +7,7 @@ int GetUserChoice() {
 	char buffer[50];
 	int choice;
 
+	// Print menu options
 	puts("*** MENU OPTIONS ***");
 	puts("1) Add new cyborg");
 	puts("2) List cyborgs");
@@ -16,6 +17,7 @@ int GetUserChoice() {
 	puts("6) Exit without saving");
 	printf("Enter your choice: ");
 
+	// Get User Choice
 	if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
 		buffer[strcspn(buffer, "\n")] = '\0'; // Remove newline character		
 		choice = atoi(buffer); // Convert string to integer
