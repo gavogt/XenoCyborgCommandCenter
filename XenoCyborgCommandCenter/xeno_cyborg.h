@@ -8,3 +8,5 @@ typedef struct {
 } AlienCyborg;
 
 int GetUserChoice();
+
+MenuSwitch(int choice);

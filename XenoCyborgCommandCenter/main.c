@@ -24,6 +24,8 @@ int main(int argc, char* argv[]) {
 
 	choice = GetUserChoice();
 
+	MenuSwitch(choice);
+
 	// Initialize variables
 	AlienCyborg* cyborgs = NULL;
 	int count = 0;

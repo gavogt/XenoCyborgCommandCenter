@@ -34,3 +34,29 @@ int GetUserChoice() {
 		EXIT_FAILURE;
 	}
 }
+
+MenuSwitch(int choice) {
+	switch (choice) {
+	case 1:
+		// Add new cyborg
+		break;
+	case 2:
+		// List cyborgs
+		break;
+	case 3:
+		// Search cyborgs
+		break;
+	case 4:
+		// Sort cyborgs
+		break;
+	case 5:
+		// Save & Exit
+		break;
+	case 6:
+		puts("Exiting....");
+		EXIT_FAILURE;
+		break;
+	default:
+		EXIT_FAILURE;
+	}
+}
