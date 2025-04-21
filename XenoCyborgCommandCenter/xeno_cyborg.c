@@ -20,24 +20,19 @@ int GetUserChoice() {
 	printf("Enter your choice (1-6): ");
 
 	// Get User Choice
-	if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
-		buffer[strcspn(buffer, "\n")] = '\0'; // Remove newline character		
-		choice = atoi(buffer); // Convert string to integer
+	if (!read_line(buffer, sizeof(buffer))) exit(EXIT_FAILURE);
+	choice = atoi(buffer); // Convert string to integer
 
-		if (choice < 1 || choice > 6) {
-			printf(stderr, "Invalid choice. Please enter a number between 1 and 6.\n");
-			EXIT_FAILURE;
-		}
-		else {
-			printf("You selected option %d\n", choice);
-			return choice;
-		}
-	}
-	else {
-		fprintf(stderr, "Error reading input\n");
+	if (choice < 1 || choice > 6) {
+		printf(stderr, "Invalid choice. Please enter a number between 1 and 6.\n");
 		EXIT_FAILURE;
 	}
+	else {
+		printf("You selected option %d\n", choice);
+		return choice;
+	}
 }
+
 
 AlienCyborg MenuSwitch(int choice) {
 	switch (choice) {
