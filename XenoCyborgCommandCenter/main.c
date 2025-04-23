@@ -11,24 +11,22 @@
 
 
 int main(int argc, char* argv[]) {
+
+	// Initialize variables
+	AlienCyborg* cyborgs = NULL;
+	int count = 0;
+	size_t capacity = 0;
+	int choice = 0;
+
 	// Print welcome message
 	WelcomeMessage();
 
-	int choice = 0;
-
 	while (1) {
 
-		choice = GetUserChoice();
-
-
-		// Initialize variables
-		AlienCyborg* cyborgs = NULL;
-		int count = 0;
-		size_t capacity = 0;
-
+		// first‐time allocation
 		if (cyborgs == NULL) {
 			capacity = 4; // Initial capacity
-			cyborgs = malloc(capacity * sizeof * cyborgs); // Allocate memory for cyborgs
+			cyborgs = malloc(capacity * sizeof *cyborgs);
 			if (cyborgs == NULL) {
 				perror("Failed to allocate memory");
 				exit(EXIT_FAILURE);
@@ -37,30 +35,12 @@ int main(int argc, char* argv[]) {
 				printf("Memory allocated successfully\n");
 			}
 		}
-		// If no cyborg was created will return 0
-		AlienCyborg newCyborg = MenuSwitch(choice);
 
-		// If newCyborg.id is not 0, it means a cyborg was created
-		if (newCyborg.id != 0) {
-			if (count == capacity) {
-				capacity *= 2; // Double the capacity if at capacity
-				// Prevent memory leak by reallocating memory so no loss of memoryblock for cyborgs into tmp pointer
-				AlienCyborg* tmp = realloc(cyborgs, capacity * sizeof * cyborgs);
-				if (!tmp) {
-					perror("Failed to reallocate memory");
-					free(cyborgs); // Free previously allocated memory
-					exit(EXIT_FAILURE);
-				}
+		// Get user choice from menu
+		choice = GetUserChoice();
 
-				cyborgs = tmp; // Update pointer to pointer to the newly allocated memory
-
-			}
-			cyborgs[count++] = newCyborg; // Add new cyborg to the array
-
-			// Let user know success
-			printf("Cyborg added successfully. Total cyborgs: %d\n", count);
-		}
-
+		// Process user choice
+		MenuSwitch(choice, &cyborgs, &capacity, &count);
 
 		// Get filename from argv
 		if (argc > 1) {

@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <stdlib.h>
 
 #include "util.h"
@@ -33,13 +33,37 @@ int GetUserChoice() {
 	}
 }
 
-
-AlienCyborg MenuSwitch(int choice) {
+void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count)
+{
 	switch (choice) {
-	case 1:
-		return AddXenoCyborg();
+	case 1: {
+
+		// create new cyborg
+		AlienCyborg newCyborg = AddXenoCyborg();
+
+		if (newCyborg.id != 0) {
+			// grow if needed
+			if (*count == *capacity) {
+				*capacity *= 2; // Double capacity
+				AlienCyborg* tmp =
+					realloc(*cyborgs, *capacity * sizeof * *cyborgs);
+				if (!tmp) {
+					perror("Failed to reallocate memory");
+					free(*cyborgs);
+					exit(EXIT_FAILURE);
+				}
+				*cyborgs = tmp;
+			}
+
+			// store cyborgs and increment count
+			(*cyborgs)[(*count)++] = newCyborg;
+			printf("Cyborg added successfully. Total cyborgs: %d\n", *count);
+		}
+	}
+		  break;
+
 	case 2:
-		// List cyborgs
+		ListXenoCyborgs(*cyborgs, *count);
 		break;
 	case 3:
 		// Search cyborgs
@@ -48,14 +72,27 @@ AlienCyborg MenuSwitch(int choice) {
 		// Sort cyborgs
 		break;
 	case 5:
-		// Save & Exit
+		exit(EXIT_SUCCESS);
 		break;
 	case 6:
 		puts("Exiting....");
 		exit(EXIT_SUCCESS);
 		break;
 	default:
-		EXIT_FAILURE;
+		// invalid choice
+		break;
+	}
+}
+
+void ListXenoCyborgs(const AlienCyborg* cyborgs, int count) {
+	if (count == 0) {
+		puts("No cyborgs to display.");
+		return;
+	}
+	puts("Cyborg List:");
+	for (int i = 0; i < count; i++) {
+		printf("ID: %d, Name: %s, Age: %d, Role: %d\n",
+			cyborgs[i].id, cyborgs[i].name, cyborgs[i].age, cyborgs[i].role);
 	}
 }
 
