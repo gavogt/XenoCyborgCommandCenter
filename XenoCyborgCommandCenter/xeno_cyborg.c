@@ -84,6 +84,16 @@ void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count)
 	}
 }
 
+const char* CyborgRoleToString(CyborgRole role) {
+	switch (role) {
+	case SCOUT:    return "SCOUT";
+	case WARRIOR:  return "WARRIOR";
+	case ENGINEER: return "ENGINEER";
+	case MEDIC:    return "MEDIC";
+	default:       return "UNKNOWN";
+	}
+}
+
 void ListXenoCyborgs(const AlienCyborg* cyborgs, int count) {
 	if (count == 0) {
 		puts("No cyborgs to display.");
@@ -91,8 +101,8 @@ void ListXenoCyborgs(const AlienCyborg* cyborgs, int count) {
 	}
 	puts("Cyborg List:");
 	for (int i = 0; i < count; i++) {
-		printf("ID: %d, Name: %s, Age: %d, Role: %d\n",
-			cyborgs[i].id, cyborgs[i].name, cyborgs[i].age, cyborgs[i].role);
+		printf("ID: %d, Name: %s, Age: %d, Role: %s\n",
+			cyborgs[i].id, cyborgs[i].name, cyborgs[i].age, CyborgRoleToString(cyborgs[i].role));
 	}
 }
 

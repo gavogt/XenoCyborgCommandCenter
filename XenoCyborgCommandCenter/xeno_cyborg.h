@@ -3,6 +3,8 @@
 
 typedef enum { SCOUT, WARRIOR, ENGINEER, MEDIC } CyborgRole;
 
+const char* CyborgRoleToString(CyborgRole role);
+
 typedef struct {
 	int id;
 	char name[50];
