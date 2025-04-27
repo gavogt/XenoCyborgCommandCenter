@@ -79,7 +79,7 @@ void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count)
 		exit(EXIT_SUCCESS);
 		break;
 	default:
-		// invalid choice
+		puts("You entered an invalid choice.");
 		break;
 	}
 }
