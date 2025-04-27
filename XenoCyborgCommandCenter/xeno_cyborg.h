@@ -18,6 +18,8 @@ void ListXenoCyborgs(const AlienCyborg* cyborgs, int count);
 
 void MenuSwitch(int choice, AlienCyborg** cyborgs, int *capacity, int *count);
 
+void SearchCyborgs(const AlienCyborg* cyborgs, int count);
+
 AlienCyborg AddXenoCyborg(void);
 
 #endif // XENO_CYBORG_H

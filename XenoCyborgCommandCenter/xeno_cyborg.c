@@ -1,5 +1,8 @@
-﻿#include <stdio.h>
+﻿#include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 
 #include "util.h"
 #include "xeno_cyborg.h"
@@ -66,7 +69,7 @@ void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count)
 		ListXenoCyborgs(*cyborgs, *count);
 		break;
 	case 3:
-		// Search cyborgs
+		SearchCyborgs(*cyborgs, *count);
 		break;
 	case 4:
 		// Sort cyborgs
@@ -81,6 +84,23 @@ void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count)
 	default:
 		puts("You entered an invalid choice.");
 		break;
+	}
+}
+
+void SearchCyborgs(const AlienCyborg* cyborgs, int count) {
+	char query[50];
+	puts("Enter name to search for:");
+	if (!read_line(query, sizeof(query))) exit(EXIT_FAILURE);
+
+	bool found = false;
+
+	for (int i = 0; i < count; i++) {
+		if (strcmp(cyborgs[i].name, query) == 0) {
+			printf("Found Cyborg: ID: %d, Name: %s, Age: %d, Role: %s\n",
+				cyborgs[i].id, cyborgs[i].name, cyborgs[i].age,
+				CyborgRoleToString(cyborgs[i].role));
+			found = true;
+		}
 	}
 }
 
