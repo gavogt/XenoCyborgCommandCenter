@@ -102,6 +102,12 @@ void SearchCyborgs(const AlienCyborg* cyborgs, int count) {
 			found = true;
 		}
 	}
+	if (!found) {
+		puts("No cyborgs found with that name.");
+	}
+	else {
+		puts("Search completed.");
+	}
 }
 
 const char* CyborgRoleToString(CyborgRole role) {
