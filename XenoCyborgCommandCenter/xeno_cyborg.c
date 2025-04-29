@@ -71,9 +71,27 @@ void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count)
 	case 3:
 		SearchCyborgs(*cyborgs, *count);
 		break;
-	case 4:
-		// Sort cyborgs
-		break;
+	case 4: {
+		char buffer[4];
+		puts("Sort by: \n1) ID\n2) Name");
+		if (read_line(buffer, sizeof buffer)) {
+			if (buffer[0] == '1') {
+				SortCyborgsByID(*cyborgs, *count);
+				puts("Cyborgs sorted by ID.");
+			}
+			else if (buffer[0] == '2') {
+				SortCyborgsByName(*cyborgs, *count);
+				puts("Cyborgs sorted by Name.");
+			}
+			else {
+				puts("Invalid choice. Please enter 1 or 2.");
+			}
+
+			ListXenoCyborgs(*cyborgs, *count);
+		}
+	}
+	break;
+
 	case 5:
 		exit(EXIT_SUCCESS);
 		break;
@@ -87,14 +105,24 @@ void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count)
 	}
 }
 
+static int CmpByID(const void* a, const void* b) {
+	const AlienCyborg* c1 = a, * c2 = b;
+	return c1->id - c2->id; // Compare by ID
+}
+
+static int CmpByName(const void* a, const void* b) {
+	const AlienCyborg* c1 = a, * c2 = b;
+	return strcmp(c1->name, c2->name); // Compare by Name
+}
+
 // Function to sort cyborgs by ID
 void SortCyborgsByID(AlienCyborg* cyborgs, int count) {
-
+	qsort(cyborgs, count, sizeof * cyborgs, CmpByID);
 }
 
 // Function to sort cyborgs by name
 void SortCyborgsByName(AlienCyborg* cyborgs, int count) {
-
+	qsort(cyborgs, count, sizeof * cyborgs, CmpByName);
 }
 
 // Function to search for cyborgs by name
