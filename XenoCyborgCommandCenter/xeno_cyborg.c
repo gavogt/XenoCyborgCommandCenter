@@ -87,6 +87,11 @@ void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count)
 	}
 }
 
+void SortCyborgs(AlienCyborg* cyborgs, int count) {
+
+}
+
+//// Function to search for cyborgs by name
 void SearchCyborgs(const AlienCyborg* cyborgs, int count) {
 	char query[50];
 	puts("Enter name to search for:");
