@@ -3,6 +3,7 @@
 
 typedef enum { SCOUT, WARRIOR, ENGINEER, MEDIC } CyborgRole;
 
+CyborgRole StringToCyborgRole(const char* str);
 const char* CyborgRoleToString(CyborgRole role);
 
 typedef struct {

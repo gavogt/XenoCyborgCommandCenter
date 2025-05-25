@@ -10,9 +10,9 @@
 int main(int argc, char* argv[]) {
 
 	// Initialize variables
-	AlienCyborg* cyborgs = NULL;
 	int count = 0;
 	size_t capacity = 0;
+	AlienCyborg* cyborgs = malloc(capacity * sizeof * cyborgs);
 	int choice = 0;
 
 	// Print welcome message
@@ -44,6 +44,7 @@ int main(int argc, char* argv[]) {
 
 
 	}
+
 
 	return 1;
 }

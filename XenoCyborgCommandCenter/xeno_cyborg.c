@@ -149,6 +149,14 @@ void SearchCyborgs(const AlienCyborg* cyborgs, int count) {
 	}
 }
 
+CyborgRole StringToCyborgRole(const char* str) {
+	if (strcmp(str, "SCOUT") == 0) return SCOUT;
+	else if (strcmp(str, "WARRIOR") == 0) return WARRIOR;
+	else if (strcmp(str, "ENGINEER") == 0) return ENGINEER;
+	else if (strcmp(str, "MEDIC") == 0) return MEDIC;
+	else return -1; // Invalid role
+}
+
 const char* CyborgRoleToString(CyborgRole role) {
 	switch (role) {
 	case SCOUT:    return "SCOUT";
