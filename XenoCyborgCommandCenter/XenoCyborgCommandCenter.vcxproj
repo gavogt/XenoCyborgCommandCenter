@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="file_io.c" />
     <ClCompile Include="util.c" />
     <ClCompile Include="xeno_cyborg.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="ui.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="file_io.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="xeno_cyborg.h" />
     <ClInclude Include="ui.h" />

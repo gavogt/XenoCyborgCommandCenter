@@ -19,6 +19,7 @@
     <ClCompile Include="xeno_cyborg.c" />
     <ClCompile Include="ui.c" />
     <ClCompile Include="util.c" />
+    <ClCompile Include="file_io.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="xeno_cyborg.h">
@@ -28,6 +29,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="file_io.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
