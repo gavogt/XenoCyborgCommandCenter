@@ -31,6 +31,13 @@
     <ClInclude Include="xeno_cyborg.h" />
     <ClInclude Include="ui.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+    <None Include="cyborgs.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="cyborgs.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

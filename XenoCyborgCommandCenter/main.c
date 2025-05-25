@@ -7,36 +7,30 @@
 #include "util.h"
 #include "xeno_cyborg.h"
 
-#define DATA_FILE "cyborgs.txt"
-#define DATA_FILE_BINARY "cyborgs.bin"
+#define TEXT_FILE "cyborgs.txt"
+#define BINARY_FILE "cyborgs.bin"
 
 int main(int argc, char* argv[]) {
 
 	// Initialize variables
 	int count = 0;
-	size_t capacity = 0;
+	size_t capacity = 4;
 	AlienCyborg* cyborgs = malloc(capacity * sizeof * cyborgs);
 	int choice = 0;
 
 	// Print welcome message
 	WelcomeMessage();
 
-	FILE* touch = fopen(DATA_FILE, "a");
-	if (touch == NULL) {
-		perror("Failed to create or open data file");
-		exit(EXIT_FAILURE);
-	}
+	FILE* touch = fopen(TEXT_FILE, "a");
+	if (touch) fclose(touch);
 
-
-	FILE* touch_binary = fopen(DATA_FILE_BINARY, "a");
-	if (touch_binary == NULL) {
-		perror("Failed to create or open data file");
-		exit(EXIT_FAILURE);
-	}
+	FILE* touch_binary = fopen(BINARY_FILE, "a");
+	if (touch_binary) fclose(touch_binary);
 
 	// Load File
-	file_load(argc, argv, &cyborgs, &count, &capacity);
+	int load_mode = file_load(argc, argv, &cyborgs, &count, &capacity);
 
+	const char* save_fname = (load_mode == 1) ? TEXT_FILE : BINARY_FILE;
 	while (1) {
 
 		// first‐time allocation
@@ -56,11 +50,9 @@ int main(int argc, char* argv[]) {
 		choice = GetUserChoice();
 
 		// Process user choice
-		MenuSwitch(choice, &cyborgs, &capacity, &count);
-
+		MenuSwitch(choice, &cyborgs, &capacity, &count, save_fname, load_mode);
 
 	}
-
 
 	return 1;
 }

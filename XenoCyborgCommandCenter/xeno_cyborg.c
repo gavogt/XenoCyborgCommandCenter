@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-
+#include "file_io.h"
 #include "util.h"
 #include "xeno_cyborg.h"
 
@@ -36,7 +36,7 @@ int GetUserChoice() {
 	}
 }
 
-void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count)
+void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count, const char* save_fname, int save_mode)
 {
 	switch (choice) {
 	case 1: {
@@ -52,7 +52,6 @@ void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count)
 					realloc(*cyborgs, *capacity * sizeof * *cyborgs);
 				if (!tmp) {
 					perror("Failed to reallocate memory");
-					free(*cyborgs);
 					exit(EXIT_FAILURE);
 				}
 				*cyborgs = tmp;
@@ -90,9 +89,10 @@ void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count)
 			ListXenoCyborgs(*cyborgs, *count);
 		}
 	}
-	break;
+		  break;
 
 	case 5:
+		file_save(save_fname, save_mode, *cyborgs, *count); // Save in binary format
 		exit(EXIT_SUCCESS);
 		break;
 	case 6:

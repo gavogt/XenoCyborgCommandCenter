@@ -9,7 +9,40 @@
 #define LINE_MAX 256
 #define MAX_CYBORGS 10
 
-void file_load(int argc, char* argv[], AlienCyborg** cyborgs, int* count, size_t* capacity) {
+void file_save(const char* fname, int mode, AlienCyborg* cyborgs, int count) {
+
+	FILE* f = NULL;
+	errno_t err = fopen_s(&f, fname, mode == 1 ? "w" : "wb");
+	if (err != 0 || f == NULL) {
+		char errbuf[256];
+		strerror_s(errbuf, sizeof errbuf, err);
+		fprintf(stderr, "Could not open save file '%s' in %s mode: %s\n",
+			fname,
+			(mode == 1 ? "text" : "binary"),
+			errbuf);
+		return;
+	}
+
+
+	if (mode == 1) {
+		// Save in text mode
+		for (int i = 0; i < count; i++) {
+			fprintf(f, "%d,%s,%d,%s\n",
+				cyborgs[i].id,
+				cyborgs[i].name,
+				cyborgs[i].age,
+				CyborgRoleToString(cyborgs[i].role));
+		}
+	}
+	else {
+		// Save in binary mode
+		if (fwrite(&count, sizeof count, 1, f) != 1 ||
+			fwrite(cyborgs, sizeof * cyborgs, count, f) != (size_t)count);
+		fclose(f);
+	}
+}
+
+int file_load(int argc, char* argv[], AlienCyborg** cyborgs, int* count, size_t* capacity) {
 
 	const char* fname;
 	if (argc > 1) {
@@ -25,7 +58,7 @@ void file_load(int argc, char* argv[], AlienCyborg** cyborgs, int* count, size_t
 	char modeStr[LINE_MAX];
 	int mode = 0;
 
-	printf("Load as 1) text or \n2) binary:\n", argv[1], argv[2]);
+	printf("Load as 1) text [%s]\nor 2) binary [%s]:\n", argv[1], argv[2]);
 
 	// Read user's choice
 	if (read_line(modeStr, sizeof modeStr))
@@ -103,6 +136,7 @@ void file_load(int argc, char* argv[], AlienCyborg** cyborgs, int* count, size_t
 		}
 		printf("Read %d cyborgs from text file\n", *count);
 		fclose(file);
+		return 1;
 	}
 	else {
 
@@ -130,6 +164,7 @@ void file_load(int argc, char* argv[], AlienCyborg** cyborgs, int* count, size_t
 
 		printf("Read %d cyborgs from binary file\n", *count);
 		fclose(file);
+		return 2;
 
 	}
 
