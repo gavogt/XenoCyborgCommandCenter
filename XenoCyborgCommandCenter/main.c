@@ -7,6 +7,9 @@
 #include "util.h"
 #include "xeno_cyborg.h"
 
+#define DATA_FILE "cyborgs.txt"
+#define DATA_FILE_BINARY "cyborgs.bin"
+
 int main(int argc, char* argv[]) {
 
 	// Initialize variables
@@ -18,6 +21,19 @@ int main(int argc, char* argv[]) {
 	// Print welcome message
 	WelcomeMessage();
 
+	FILE* touch = fopen(DATA_FILE, "a");
+	if (touch == NULL) {
+		perror("Failed to create or open data file");
+		exit(EXIT_FAILURE);
+	}
+
+
+	FILE* touch_binary = fopen(DATA_FILE_BINARY, "a");
+	if (touch_binary == NULL) {
+		perror("Failed to create or open data file");
+		exit(EXIT_FAILURE);
+	}
+
 	// Load File
 	file_load(argc, argv, &cyborgs, &count, &capacity);
 
@@ -26,7 +42,7 @@ int main(int argc, char* argv[]) {
 		// first‐time allocation
 		if (cyborgs == NULL) {
 			capacity = 4; // Initial capacity
-			cyborgs = malloc(capacity * sizeof *cyborgs);
+			cyborgs = malloc(capacity * sizeof * cyborgs);
 			if (cyborgs == NULL) {
 				perror("Failed to allocate memory");
 				exit(EXIT_FAILURE);
