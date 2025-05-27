@@ -1,4 +1,11 @@
-﻿#include <stdio.h>
+﻿/*
+Author: [Gabriel Vogt]
+Date: May 27, 2025
+Summary: Menu-driven C program to manage, search, sort, and persist a fleet of 
+Alien Cyborgs with robust file I/O and dynamic memory.
+*/
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
