@@ -20,6 +20,7 @@ void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count, co
 void SortCyborgsByID(AlienCyborg* cyborgs, int count);
 void SortCyborgsByName(AlienCyborg* cyborgs, int count);
 void SearchCyborgs(const AlienCyborg* cyborgs, int count);
+void DetermineAge(AlienCyborg *cyborgs);
 
 AlienCyborg AddXenoCyborg(void);
 

@@ -57,6 +57,9 @@ void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count, co
 				*cyborgs = tmp;
 			}
 
+			// Display Age
+			DetermineAge(&newCyborg); // Determine age based on role
+
 			// store cyborgs and increment count
 			(*cyborgs)[(*count)++] = newCyborg;
 			printf("Cyborg added successfully. Total cyborgs: %d\n", *count);
@@ -229,4 +232,15 @@ AlienCyborg AddXenoCyborg(void) {
 	return newCyborg; // Return the new cyborg struct
 }
 
+void DetermineAge(AlienCyborg *cyborg) {
+	if (cyborg->age < 18) {
+		puts("Age Category: Minor");
+	}
+	else if (cyborg->age < 65) {
+		puts("Age Category: Adult");
+	}
+	else {
+		puts("Age Category: Senior");
+	}
+}
 
