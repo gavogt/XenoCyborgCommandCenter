@@ -57,9 +57,6 @@ void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count, co
 				*cyborgs = tmp;
 			}
 
-			// Display Age
-			DetermineAge(&newCyborg); // Determine age based on role
-
 			// store cyborgs and increment count
 			(*cyborgs)[(*count)++] = newCyborg;
 			printf("Cyborg added successfully. Total cyborgs: %d\n", *count);
@@ -70,9 +67,25 @@ void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count, co
 	case 2:
 		ListXenoCyborgs(*cyborgs, *count);
 		break;
-	case 3:
-		SearchCyborgs(*cyborgs, *count);
+	case 3: {
+		puts("Search by: \n1) Role\n2) Name");
+		char buffer[8];
+		if (!read_line(buffer, sizeof(buffer))) {
+			perror("Failed to read input");
+			exit(EXIT_FAILURE);
+		}
+		if (buffer[0] != '1' && buffer[0] != '2') {
+			puts("Invalid choice. Please enter 1 or 2.");
+			break;
+		}
+		if (buffer[0] == '1') {
+			SearchCyborgsByRole(*cyborgs, *count);
+		}
+		else {
+			SearchCyborgsByName(*cyborgs, *count);
+		}
 		break;
+	}
 	case 4: {
 		char buffer[4];
 		puts("Sort by: \n1) ID\n2) Name");
@@ -128,8 +141,41 @@ void SortCyborgsByName(AlienCyborg* cyborgs, int count) {
 	qsort(cyborgs, count, sizeof * cyborgs, CmpByName);
 }
 
+// Function to search cyborgs by role
+void SearchCyborgsByRole(const AlienCyborg* cyborgs, int count) {
+	char query[50];
+	puts("Type role to search for (SCOUT, WARRIOR, ENGINEER, MEDIC):");
+	if (!read_line(query, sizeof(query))) {
+		perror("Failed to read input");
+		exit(EXIT_FAILURE);
+	}
+
+	CyborgRole role = StringToCyborgRole(query);
+	if (role == (CyborgRole)-1) {
+		puts("Invalid role entered.");
+		return;
+	}
+
+	bool found = false;
+	for (int i = 0; i < count; i++) {
+		if (cyborgs[i].role == role) {
+			printf("Found Cyborg: ID: %d, Name: %s, Age: %d, Role: %s\n",
+				cyborgs[i].id, cyborgs[i].name, cyborgs[i].age,
+				CyborgRoleToString(cyborgs[i].role));
+			found = true;
+		}
+	}
+
+	if (!found) {
+		puts("No cyborgs found with that role.");
+	}
+	else {
+		puts("Search completed.");
+	}
+}
+
 // Function to search for cyborgs by name
-void SearchCyborgs(const AlienCyborg* cyborgs, int count) {
+void SearchCyborgsByName(const AlienCyborg* cyborgs, int count) {
 	char query[50];
 	puts("Enter name to search for:");
 	if (!read_line(query, sizeof(query))) exit(EXIT_FAILURE);
@@ -229,10 +275,13 @@ AlienCyborg AddXenoCyborg(void) {
 	printf("Age: %d\n", newCyborg.age);
 	printf("Role: %d\n", newCyborg.role);
 
+	// Display Age
+	DetermineAge(&newCyborg); // Determine age based on role
+
 	return newCyborg; // Return the new cyborg struct
 }
 
-void DetermineAge(AlienCyborg *cyborg) {
+void DetermineAge(AlienCyborg* cyborg) {
 	if (cyborg->age < 18) {
 		puts("Age Category: Minor");
 	}

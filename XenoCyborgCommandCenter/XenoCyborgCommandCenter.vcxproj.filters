@@ -36,10 +36,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="cyborgs.bin" />
     <None Include=".gitignore" />
-    <None Include="cyborgs.bin">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="cyborgs.txt" />

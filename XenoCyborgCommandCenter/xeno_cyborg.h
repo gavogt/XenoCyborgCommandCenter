@@ -19,8 +19,9 @@ void ListXenoCyborgs(const AlienCyborg* cyborgs, int count);
 void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count, const char* save_fname, int save_mode);
 void SortCyborgsByID(AlienCyborg* cyborgs, int count);
 void SortCyborgsByName(AlienCyborg* cyborgs, int count);
-void SearchCyborgs(const AlienCyborg* cyborgs, int count);
+void SearchCyborgsByName(const AlienCyborg* cyborgs, int count);
 void DetermineAge(AlienCyborg *cyborgs);
+void SearchCyborgsByRole(const AlienCyborg* cyborgs, int count);
 
 AlienCyborg AddXenoCyborg(void);
 
