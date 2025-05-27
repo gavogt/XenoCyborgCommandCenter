@@ -21,9 +21,13 @@ int main(int argc, char* argv[]) {
 	// Print welcome message
 	WelcomeMessage();
 
+	// Create file if not already created
+	// Close file if already created
 	FILE* touch = fopen(TEXT_FILE, "a");
 	if (touch) fclose(touch);
 
+	// Create binary file if not already created
+	// Close binary file if already created
 	FILE* touch_binary = fopen(BINARY_FILE, "a");
 	if (touch_binary) fclose(touch_binary);
 
