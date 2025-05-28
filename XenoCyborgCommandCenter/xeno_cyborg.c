@@ -113,12 +113,21 @@ void MenuSwitch(int choice, AlienCyborg** cyborgs, int* capacity, int* count, co
 		break;
 	case 6:
 		puts("Exiting....");
+		Cleanup(*cyborgs); // Clean up memory
 		exit(EXIT_SUCCESS);
 		break;
 	default:
 		puts("You entered an invalid choice.");
 		break;
 	}
+}
+
+void Cleanup(AlienCyborg* cyborgs) {
+	if (cyborgs) {
+		free(cyborgs);
+		cyborgs = NULL;
+	}
+	puts("Memory cleaned up successfully.");
 }
 
 static int CmpByID(const void* a, const void* b) {

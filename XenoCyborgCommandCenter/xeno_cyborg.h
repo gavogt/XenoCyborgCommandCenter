@@ -22,6 +22,7 @@ void SortCyborgsByName(AlienCyborg* cyborgs, int count);
 void SearchCyborgsByName(const AlienCyborg* cyborgs, int count);
 void DetermineAge(AlienCyborg *cyborgs);
 void SearchCyborgsByRole(const AlienCyborg* cyborgs, int count);
+void Cleanup(AlienCyborg* cyborgs);
 
 AlienCyborg AddXenoCyborg(void);
 
